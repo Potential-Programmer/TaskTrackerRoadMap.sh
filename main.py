@@ -33,7 +33,3 @@ while True:
     else:
         print("Invalid command!")
     command = input("Enter a command: ")
-
-else:
-    
-    print("Exiting the application...")
