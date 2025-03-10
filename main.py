@@ -4,10 +4,16 @@ Author and Owner: "Jasser Ahmed Bassuny"
 Description: "This is a simple python task tracker application that allows the user to add, delete, and view tasks on CLI."
 Version: 0.1
 """
-with open("tasks.json", "r") as file:
-    tasks = file.read()
-    if tasks == "":
-        tasks = []
+try:
+    with open("tasks.json", "r") as file:
+        tasks = file.read()
+        if tasks == "":
+            tasks = []
+
+except FileNotFoundError:
+    tasks = []
+    with open("tasks.json", "w") as file:
+        file.write("[]")
 
 command = input("Enter a command: ")
 while True:
