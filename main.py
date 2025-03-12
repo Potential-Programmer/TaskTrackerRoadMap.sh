@@ -4,11 +4,12 @@ Author and Owner: "Jasser Ahmed Bassuny"
 Description: "This is a simple python task tracker application that allows the user to add, delete, and view tasks on CLI."
 Version: 0.1
 """
+import json
 try:
     with open("tasks.json", "r") as file:
         tasks = file.read()
-        if tasks == "":
-            tasks = []
+        tasks = json.loads(tasks)
+        print(type(tasks))
 
 except FileNotFoundError:
     tasks = []
@@ -16,14 +17,20 @@ except FileNotFoundError:
         file.write("[]")
 
 command = input("Enter a command: ")
+split = command.split(" ")
+
 while True:
     if command == "add":
         import add
         add.add(tasks)
     #elif command == "delete":
     #    import delete
-    #elif command == "view":
-    #    import view
+    elif "view" == split[0]:
+        import view
+        if len(split) == 1:
+            view.view(tasks)
+        else:
+            view.view(tasks, int(split[1]))
     elif command == "exit":
         Confirm = input("Are you sure you want to exit? Y/N: ")
         if Confirm == "Y":
@@ -33,3 +40,4 @@ while True:
     else:
         print("Invalid command!")
     command = input("Enter a command: ")
+    split = command.split(" ")
